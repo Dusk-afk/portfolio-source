@@ -16,7 +16,7 @@ class _AboutMeState extends State<AboutMe> {
     bool isMobile = context.watch<ScreenProvider>().isMobile;
 
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth < 800) {
+      if (constraints.maxWidth < 700) {
         isMobile = true;
       } else {
         isMobile = false;

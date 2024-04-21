@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
     lastScreenSize ??= MediaQuery.of(context).size;
 
     return MaterialApp(
+      title: "Piyush Kumar",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "JetBrains",
