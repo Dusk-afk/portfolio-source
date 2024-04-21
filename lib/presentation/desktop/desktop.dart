@@ -4,6 +4,9 @@ import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/models/window/window.dart';
 import 'package:portfolio/presentation/pages/about_me.dart/about_me.dart';
+import 'package:portfolio/presentation/pages/contact/contact.dart';
+import 'package:portfolio/presentation/pages/experience/experience.dart';
+import 'package:portfolio/presentation/pages/projects/projects.dart';
 
 int i = 0;
 
@@ -103,6 +106,51 @@ class Desktop extends StatelessWidget {
                             Window(
                               title: "About Me",
                               child: AboutMe(),
+                            ),
+                          ),
+                        );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _QuickLink(
+                  title: "Experience",
+                  color: TColors.yellow,
+                  onPressed: () {
+                    context.read<WindowBloc>().add(
+                          const AddWindow(
+                            Window(
+                              title: "Experience",
+                              child: Experience(),
+                            ),
+                          ),
+                        );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _QuickLink(
+                  title: "Projects",
+                  color: TColors.green,
+                  onPressed: () {
+                    context.read<WindowBloc>().add(
+                          const AddWindow(
+                            Window(
+                              title: "Projects",
+                              child: Projects(),
+                            ),
+                          ),
+                        );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _QuickLink(
+                  title: "Contact",
+                  color: TColors.blue,
+                  onPressed: () {
+                    context.read<WindowBloc>().add(
+                          const AddWindow(
+                            Window(
+                              title: "Contact",
+                              child: Contact(),
                             ),
                           ),
                         );

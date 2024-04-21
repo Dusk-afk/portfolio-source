@@ -25,6 +25,7 @@ class _WindowWidgetState extends State<WindowWidget> {
           Container(
             width: widget.window.size.width,
             decoration: BoxDecoration(
+              color: TColors.primary,
               border: Border.all(
                 color: Colors.white,
               ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
+import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
-import 'package:portfolio/presentation/dock/dock.dart';
 import 'package:portfolio/presentation/menu_bar/menu_bar.dart';
 import 'package:portfolio/presentation/window/window_canvas.dart';
 
@@ -15,18 +15,21 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<WindowBloc>(
-          create: (_) => WindowBloc(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: "JetBrains",
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: WidgetStateProperty.all(TColors.pink),
         ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: "JetBrains",
-        ),
-        home: const Scaffold(
+      ),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<WindowBloc>(
+            create: (_) => WindowBloc(),
+          ),
+        ],
+        child: const Scaffold(
           body: Column(
             children: [
               CustomMenuBar(),
