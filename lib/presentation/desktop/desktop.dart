@@ -1,12 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/models/window/window.dart';
-import 'package:portfolio/presentation/background/background.dart';
 import 'package:portfolio/presentation/pages/about_me.dart/about_me.dart';
 import 'package:portfolio/presentation/pages/contact/contact.dart';
 import 'package:portfolio/presentation/pages/experience/experience.dart';
@@ -38,7 +35,6 @@ class Desktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Background(),
         ListView(
           children: [
             Row(

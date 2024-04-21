@@ -33,20 +33,19 @@ class _WindowWidgetState extends State<WindowWidget> {
             child: Background.window(),
           ),
           Container(
-            width: isMobile
+            width: isMobile || widget.window.maximized
                 ? MediaQuery.of(context).size.width
                 : widget.window.size.width,
             decoration: BoxDecoration(
-              // color: TColors.primary,
               border: Border.all(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.3),
               ),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
                   color: const Color.fromARGB(255, 32, 29, 44).withOpacity(0.5),
                   blurRadius: 10,
-                  spreadRadius: 10,
+                  spreadRadius: 5,
                   offset: const Offset(0, 0),
                 )
               ],
@@ -60,14 +59,13 @@ class _WindowWidgetState extends State<WindowWidget> {
                   borderRadius: const BorderRadius.vertical(
                     bottom: Radius.circular(10),
                   ),
-                  child: Container(
-                    height: (isMobile
+                  child: SizedBox(
+                    height: (isMobile || widget.window.maximized
                             ? MediaQuery.of(context).size.height -
                                 kMenuBarHeight -
                                 2
                             : widget.window.size.height) -
                         titleBarHeight,
-                    // color: TColors.primary,
                     child: SingleChildScrollView(child: widget.window.child),
                   ),
                 ),
@@ -106,7 +104,9 @@ class _TitleBarState extends State<_TitleBar> {
 
     return Listener(
       onPointerDown: (event) {
-        _mouseOffset = event.localPosition;
+        _mouseOffset = widget.window.maximized
+            ? Offset(widget.window.size.width / 2, event.localPosition.dy)
+            : event.localPosition;
       },
       onPointerMove: (event) {
         Offset position = event.position;
@@ -124,11 +124,16 @@ class _TitleBarState extends State<_TitleBar> {
         position -= const Offset(0, kMenuBarHeight);
         context.read<WindowBloc>().add(MoveWindow(widget.window, position));
       },
+      onPointerUp: (event) {
+        if (event.position.dy < kMenuBarHeight + 10) {
+          context.read<WindowBloc>().add(MaximizeWindow(widget.window));
+        }
+      },
       child: Container(
         height: titleBarHeight,
-        decoration: const BoxDecoration(
-          color: TColors.primaryDark,
-          borderRadius: BorderRadius.vertical(
+        decoration: BoxDecoration(
+          color: TColors.white.withOpacity(0.05),
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(10),
           ),
         ),
@@ -196,15 +201,6 @@ class _TitleBarState extends State<_TitleBar> {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 1,
-                color: Colors.white,
-              ),
-            )
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/data/global.dart';
+import 'package:portfolio/presentation/background/background.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
 import 'package:portfolio/presentation/menu_bar/menu_bar.dart';
 import 'package:portfolio/presentation/window/window_canvas.dart';
@@ -40,23 +41,28 @@ class MainApp extends StatelessWidget {
             context.read<ScreenProvider>().isMobile = screenSize.width < 800;
           });
 
-          return const Scaffold(
-            body: Column(
+          return Scaffold(
+            body: Stack(
               children: [
-                CustomMenuBar(),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Desktop(),
-                      WindowCanvas(),
-                      // Positioned(
-                      //   bottom: 20,
-                      //   left: 0,
-                      //   right: 0,
-                      //   child: Dock(),
-                      // ),
-                    ],
-                  ),
+                Background(),
+                const Column(
+                  children: [
+                    CustomMenuBar(),
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Desktop(),
+                          WindowCanvas(),
+                          // Positioned(
+                          //   bottom: 20,
+                          //   left: 0,
+                          //   right: 0,
+                          //   child: Dock(),
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

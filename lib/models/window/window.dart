@@ -7,6 +7,7 @@ class Window extends Equatable {
   final Offset position;
   final Size size;
   final bool hidden;
+  final bool maximized;
 
   const Window({
     required this.title,
@@ -14,10 +15,11 @@ class Window extends Equatable {
     this.position = const Offset(0, 0),
     this.size = const Size(800, 600),
     this.hidden = false,
+    this.maximized = false,
   });
 
   @override
-  List<Object> get props => [title, child, position, size, hidden];
+  List<Object> get props => [title, child, position, size, hidden, maximized];
 
   Window copyWith({
     String? title,
@@ -25,6 +27,7 @@ class Window extends Equatable {
     Offset? position,
     Size? size,
     bool? hidden,
+    bool? maximized,
   }) {
     return Window(
       title: title ?? this.title,
@@ -32,6 +35,7 @@ class Window extends Equatable {
       position: position ?? this.position,
       size: size ?? this.size,
       hidden: hidden ?? this.hidden,
+      maximized: maximized ?? this.maximized,
     );
   }
 }

@@ -72,7 +72,7 @@ class AboutMe extends StatelessWidget {
                       vertical: 10,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF00274d),
+                      color: const Color(0xFF1e1e2e),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: RichText(

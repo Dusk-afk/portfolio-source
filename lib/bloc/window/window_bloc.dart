@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/data/constants.dart';
 import 'package:portfolio/data/global.dart';
 import 'package:portfolio/models/window/window.dart';
 
@@ -16,8 +15,13 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       if (index != -1) {
         add(FocusWindow(state.windows[index]));
       } else {
+        final screenSize = MediaQuery.of(Global.rootContext).size;
+        Offset position = Offset(
+          screenSize.width / 2 - event.window.size.width / 2,
+          screenSize.height / 2 - event.window.size.height / 2,
+        );
         final windows = List<Window>.from(state.windows)
-          ..add(event.window.copyWith(position: const Offset(20, 20)));
+          ..add(event.window.copyWith(position: position));
         emit(WindowStateSafe(windows));
       }
     });
@@ -33,7 +37,8 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       if (index == -1) return;
       final windows = List<Window>.from(state.windows);
       windows.removeAt(index);
-      windows.add(event.window.copyWith(position: event.position));
+      windows.add(
+          event.window.copyWith(position: event.position, maximized: false));
       emit(WindowStateSafe(windows));
     });
 
@@ -62,14 +67,10 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       int index = state.windows.indexOf(event.window);
       if (index == -1) return;
 
-      Size screenSize = MediaQuery.of(Global.rootContext).size;
-      screenSize = Size(screenSize.width, screenSize.height - kMenuBarHeight);
-
       final windows = List<Window>.from(state.windows);
       windows.removeAt(index);
       windows.add(event.window.copyWith(
-        position: Offset.zero,
-        size: screenSize,
+        maximized: !event.window.maximized,
       ));
       emit(WindowStateSafe(windows));
     });

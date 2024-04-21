@@ -19,7 +19,7 @@ class CustomMenuBar extends StatelessWidget {
 
         return Container(
           height: kMenuBarHeight,
-          color: TColors.primaryDark,
+          color: TColors.white.withOpacity(0.05),
           child: Row(
             children: [
               const SizedBox(width: 40),
