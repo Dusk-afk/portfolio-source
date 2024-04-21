@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/models/window/window.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
 import 'package:portfolio/presentation/dock/dock.dart';
-import 'package:portfolio/presentation/window/window.dart';
+import 'package:portfolio/presentation/window/window_widget.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,13 +18,16 @@ class MainApp extends StatelessWidget {
         body: Stack(
           children: [
             Desktop(),
-            Window(
-              child: SizedBox(
-                height: 300,
-                child: Center(
-                  child: Text(
-                    "Hello World",
-                    style: TextStyle(color: Colors.green),
+            WindowWidget(
+              window: Window(
+                title: "title",
+                child: SizedBox(
+                  height: 300,
+                  child: Center(
+                    child: Text(
+                      "Hello World",
+                      style: TextStyle(color: Colors.green),
+                    ),
                   ),
                 ),
               ),
