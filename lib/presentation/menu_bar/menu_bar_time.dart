@@ -46,6 +46,9 @@ class _MenuBarTimeState extends State<MenuBarTime> {
               _dateTime,
               [D, ', ', M, ' ', d, ' • '],
             ),
+            style: const TextStyle(
+              color: Colors.white,
+            ),
           ),
           TextSpan(
             text: hour,

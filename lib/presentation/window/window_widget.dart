@@ -30,7 +30,10 @@ class _WindowWidgetState extends State<WindowWidget> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: Background.window(),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              child: Background.window(),
+            ),
           ),
           Container(
             width: isMobile || widget.window.maximized
