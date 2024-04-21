@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +74,30 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       windows.add(event.window.copyWith(
         maximized: !event.window.maximized,
       ));
+      emit(WindowStateSafe(windows));
+    });
+
+    on<WindowScreenSizeChanged>((event, emit) {
+      final windows = state.windows.map((window) {
+        if (window.position.dx + window.size.width > event.to.width ||
+            window.position.dy + window.size.height > event.to.height) {
+          Offset diff = (event.from - event.to) as Offset;
+          diff = Offset(
+            diff.dx.clamp(0, double.infinity),
+            diff.dy.clamp(0, double.infinity),
+          );
+          Offset position = window.position - diff;
+          position = Offset(
+            position.dx.clamp(0.0, double.infinity),
+            position.dy.clamp(0.0, double.infinity),
+          );
+
+          return window.copyWith(
+            position: position,
+          );
+        }
+        return window;
+      }).toList();
       emit(WindowStateSafe(windows));
     });
   }

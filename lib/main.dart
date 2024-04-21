@@ -10,6 +10,8 @@ import 'package:portfolio/presentation/window/window_canvas.dart';
 import 'package:portfolio/provider/screen_provider.dart';
 import 'package:provider/provider.dart';
 
+Size? lastScreenSize;
+
 void main() {
   runApp(const MainApp());
 }
@@ -19,6 +21,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    lastScreenSize ??= MediaQuery.of(context).size;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -40,6 +44,12 @@ class MainApp extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             context.read<ScreenProvider>().isMobile = screenSize.width < 800;
           });
+          if (lastScreenSize != screenSize) {
+            context
+                .read<WindowBloc>()
+                .add(WindowScreenSizeChanged(lastScreenSize!, screenSize));
+            lastScreenSize = screenSize;
+          }
 
           return Scaffold(
             body: Stack(

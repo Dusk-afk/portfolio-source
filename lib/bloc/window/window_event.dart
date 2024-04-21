@@ -71,3 +71,13 @@ class MaximizeWindow extends WindowEvent {
   @override
   List<Object> get props => [window];
 }
+
+class WindowScreenSizeChanged extends WindowEvent {
+  final Size from;
+  final Size to;
+
+  const WindowScreenSizeChanged(this.from, this.to);
+
+  @override
+  List<Object> get props => [from, to];
+}
