@@ -20,38 +20,49 @@ class _WindowWidgetState extends State<WindowWidget> {
       onPointerDown: (_) {
         context.read<WindowBloc>().add(FocusWindow(widget.window));
       },
-      child: Container(
-        width: 800,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
+      child: Stack(
+        children: [
+          Container(
+            width: widget.window.size.width,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.white,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 32, 29, 44).withOpacity(0.5),
+                  blurRadius: 10,
+                  spreadRadius: 10,
+                  offset: const Offset(0, 0),
+                )
+              ],
+            ),
+            child: Column(
+              children: [
+                _TitleBar(
+                  window: widget.window,
+                ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(10),
+                  ),
+                  child: Container(
+                    height: widget.window.size.height - 30,
+                    color: TColors.primary,
+                    child: SingleChildScrollView(child: widget.window.child),
+                  ),
+                ),
+              ],
+            ),
           ),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 32, 29, 44).withOpacity(0.5),
-              blurRadius: 10,
-              spreadRadius: 10,
-              offset: const Offset(0, 0),
-            )
-          ],
-        ),
-        child: Column(
-          children: [
-            _TitleBar(
-              window: widget.window,
-            ),
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(10),
-              ),
-              child: Container(
-                color: TColors.primary,
-                child: widget.window.child,
-              ),
-            ),
-          ],
-        ),
+          Positioned(
+              bottom: 0,
+              right: 0,
+              child: _BottomRightAnchor(
+                window: widget.window,
+              )),
+        ],
       ),
     );
   }
@@ -166,6 +177,52 @@ class _TitleBarState extends State<_TitleBar> {
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomRightAnchor extends StatefulWidget {
+  final Window window;
+  const _BottomRightAnchor({
+    required this.window,
+  });
+
+  @override
+  State<_BottomRightAnchor> createState() => _BottomRightAnchorState();
+}
+
+class _BottomRightAnchorState extends State<_BottomRightAnchor> {
+  Offset _dragStart = const Offset(0, 0);
+  Size _startSize = const Size(0, 0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (event) {
+        _dragStart = event.position;
+        _startSize = widget.window.size;
+      },
+      onPointerMove: (event) {
+        Offset finalPosition = event.position;
+        Offset diff = (finalPosition - _dragStart);
+        Size newSize = _startSize + diff;
+        newSize = Size(
+          newSize.width.clamp(200, MediaQuery.of(context).size.width),
+          newSize.height.clamp(
+            200,
+            MediaQuery.of(context).size.height - kMenuBarHeight - 2,
+          ),
+        );
+
+        context.read<WindowBloc>().add(ResizeWindow(widget.window, newSize));
+      },
+      child: const MouseRegion(
+        cursor: SystemMouseCursors.resizeUpLeftDownRight,
+        child: SizedBox(
+          width: 10,
+          height: 10,
         ),
       ),
     );

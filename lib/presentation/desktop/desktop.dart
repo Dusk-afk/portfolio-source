@@ -83,32 +83,10 @@ class Desktop extends StatelessWidget {
                     ],
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.read<WindowBloc>().add(AddWindow(
-                          Window(
-                            title: "About Me",
-                            child: AboutMe(),
-                          ),
-                        ));
-                  },
-                  child: Text("About Me"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.read<WindowBloc>().add(AddWindow(
-                          Window(
-                            title: "${++i}",
-                            child: Placeholder(),
-                          ),
-                        ));
-                  },
-                  child: Text("A"),
-                ),
                 const SizedBox(height: 40),
-                Text(
+                const Text(
                   "// Quick Links",
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Color.fromARGB(255, 112, 112, 112),
                     fontSize: 16,
                     fontFamily: "JetBrains",
@@ -120,12 +98,14 @@ class Desktop extends StatelessWidget {
                   title: "About Me",
                   color: TColors.pink,
                   onPressed: () {
-                    context.read<WindowBloc>().add(const AddWindow(
-                          Window(
-                            title: "About Me",
-                            child: AboutMe(),
+                    context.read<WindowBloc>().add(
+                          const AddWindow(
+                            Window(
+                              title: "About Me",
+                              child: AboutMe(),
+                            ),
                           ),
-                        ));
+                        );
                   },
                 ),
                 // const _Section(

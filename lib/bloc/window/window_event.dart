@@ -52,3 +52,13 @@ class MinimizeWindow extends WindowEvent {
   @override
   List<Object> get props => [window];
 }
+
+class ResizeWindow extends WindowEvent {
+  final Window window;
+  final Size size;
+
+  const ResizeWindow(this.window, this.size);
+
+  @override
+  List<Object> get props => [size, window];
+}

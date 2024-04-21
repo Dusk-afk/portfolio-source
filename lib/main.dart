@@ -35,12 +35,12 @@ class MainApp extends StatelessWidget {
                   children: [
                     Desktop(),
                     WindowCanvas(),
-                    Positioned(
-                      bottom: 20,
-                      left: 0,
-                      right: 0,
-                      child: Dock(),
-                    ),
+                    // Positioned(
+                    //   bottom: 20,
+                    //   left: 0,
+                    //   right: 0,
+                    //   child: Dock(),
+                    // ),
                   ],
                 ),
               ),

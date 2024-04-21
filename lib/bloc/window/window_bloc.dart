@@ -9,8 +9,14 @@ part 'window_state.dart';
 class WindowBloc extends Bloc<WindowEvent, WindowState> {
   WindowBloc() : super(WindowInitial()) {
     on<AddWindow>((event, emit) {
-      final windows = List<Window>.from(state.windows)..add(event.window);
-      emit(WindowStateSafe(windows));
+      int index = state.windows
+          .indexWhere((widget) => widget.title == event.window.title);
+      if (index != -1) {
+        add(FocusWindow(state.windows[index]));
+      } else {
+        final windows = List<Window>.from(state.windows)..add(event.window);
+        emit(WindowStateSafe(windows));
+      }
     });
 
     on<FocusWindow>((event, emit) {
@@ -37,6 +43,15 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       final windows = List<Window>.from(state.windows)
         ..remove(event.window)
         ..add(event.window.copyWith(hidden: true));
+      emit(WindowStateSafe(windows));
+    });
+
+    on<ResizeWindow>((event, emit) {
+      int index = state.windows.indexOf(event.window);
+      if (index == -1) return;
+      final windows = List<Window>.from(state.windows);
+      windows.removeAt(index);
+      windows.add(event.window.copyWith(size: event.size));
       emit(WindowStateSafe(windows));
     });
   }
