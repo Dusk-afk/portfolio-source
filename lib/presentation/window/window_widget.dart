@@ -119,6 +119,7 @@ class _TitleBarState extends State<_TitleBar> {
               left: 16,
               top: 0,
               bottom: 0,
+              right: 0,
               child: Row(
                 children: [
                   _Button(
@@ -142,16 +143,33 @@ class _TitleBarState extends State<_TitleBar> {
                             .read<WindowBloc>()
                             .add(MaximizeWindow(widget.window));
                       }),
+                  Expanded(
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        context
+                            .read<WindowBloc>()
+                            .add(MaximizeWindow(widget.window));
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             Positioned.fill(
-              child: Center(
-                child: Text(
-                  widget.window.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: "JetBrains",
+              child: GestureDetector(
+                onDoubleTap: () {
+                  context.read<WindowBloc>().add(MaximizeWindow(widget.window));
+                },
+                child: Center(
+                  child: Text(
+                    widget.window.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: "JetBrains",
+                    ),
                   ),
                 ),
               ),
