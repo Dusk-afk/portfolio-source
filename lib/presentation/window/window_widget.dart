@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
+import 'package:portfolio/data/colors.dart';
+import 'package:portfolio/data/constants.dart';
 import 'package:portfolio/models/window/window.dart';
 
 class WindowWidget extends StatefulWidget {
@@ -19,7 +21,7 @@ class _WindowWidgetState extends State<WindowWidget> {
         context.read<WindowBloc>().add(FocusWindow(widget.window));
       },
       child: Container(
-        width: 400,
+        width: 800,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.white,
@@ -44,7 +46,7 @@ class _WindowWidgetState extends State<WindowWidget> {
                 bottom: Radius.circular(10),
               ),
               child: Container(
-                color: const Color(0xFF001427),
+                color: TColors.primary,
                 child: widget.window.child,
               ),
             ),
@@ -84,16 +86,17 @@ class _TitleBarState extends State<_TitleBar> {
             MediaQuery.of(context).size.width - 100,
           ),
           position.dy.clamp(
-            0,
+            kMenuBarHeight,
             MediaQuery.of(context).size.height - 30,
           ),
         );
+        position -= const Offset(0, kMenuBarHeight);
         context.read<WindowBloc>().add(MoveWindow(widget.window, position));
       },
       child: Container(
         height: 30,
         decoration: const BoxDecoration(
-          color: Color(0xFF001427),
+          color: TColors.primaryDark,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(10),
           ),
@@ -107,20 +110,20 @@ class _TitleBarState extends State<_TitleBar> {
               child: Row(
                 children: [
                   _buildButton(
-                      color: Colors.red,
+                      color: TColors.pink,
                       onPressed: () {
                         context
                             .read<WindowBloc>()
                             .add(CloseWindow(widget.window));
                       }),
                   _buildButton(
-                      color: Colors.yellow,
+                      color: TColors.yellow,
                       onPressed: () {
                         context
                             .read<WindowBloc>()
                             .add(MinimizeWindow(widget.window));
                       }),
-                  _buildButton(color: Colors.green, onPressed: () {}),
+                  _buildButton(color: TColors.green, onPressed: () {}),
                 ],
               ),
             ),
@@ -130,6 +133,7 @@ class _TitleBarState extends State<_TitleBar> {
                   widget.window.title,
                   style: const TextStyle(
                     color: Colors.white,
+                    fontFamily: "JetBrains",
                   ),
                 ),
               ),

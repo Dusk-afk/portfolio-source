@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
 import 'package:portfolio/presentation/dock/dock.dart';
+import 'package:portfolio/presentation/menu_bar/menu_bar.dart';
 import 'package:portfolio/presentation/window/window_canvas.dart';
 
 void main() {
@@ -20,17 +21,28 @@ class MainApp extends StatelessWidget {
           create: (_) => WindowBloc(),
         ),
       ],
-      child: const MaterialApp(
-        home: Scaffold(
-          body: Stack(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "JetBrains",
+        ),
+        home: const Scaffold(
+          body: Column(
             children: [
-              Desktop(),
-              WindowCanvas(),
-              Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: Dock(),
+              CustomMenuBar(),
+              Expanded(
+                child: Stack(
+                  children: [
+                    Desktop(),
+                    WindowCanvas(),
+                    Positioned(
+                      bottom: 20,
+                      left: 0,
+                      right: 0,
+                      child: Dock(),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
