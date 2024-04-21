@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/window/window_bloc.dart';
+import 'package:portfolio/models/window/window.dart';
+
+int i = 0;
 
 class Desktop extends StatelessWidget {
   const Desktop({super.key});
@@ -71,6 +76,17 @@ class Desktop extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<WindowBloc>().add(AddWindow(
+                          Window(
+                            title: "${++i}",
+                            child: Placeholder(),
+                          ),
+                        ));
+                  },
+                  child: Text("A"),
                 ),
               ],
             ),

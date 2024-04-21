@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/models/window/window.dart';
 
 class WindowWidget extends StatefulWidget {
@@ -10,31 +12,39 @@ class WindowWidget extends StatefulWidget {
 }
 
 class _WindowWidgetState extends State<WindowWidget> {
-  Offset _position = const Offset(50, 50);
-
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: _position.dy,
-      left: _position.dx,
-      child: SizedBox(
+    return Listener(
+      onPointerDown: (_) {
+        context.read<WindowBloc>().add(FocusWindow(widget.window));
+      },
+      child: Container(
         width: 400,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 32, 29, 44).withOpacity(0.5),
+              blurRadius: 10,
+              spreadRadius: 10,
+              offset: const Offset(0, 0),
+            )
+          ],
+        ),
         child: Column(
           children: [
             _TitleBar(
               window: widget.window,
-              onDrag: (position) {
-                setState(() {
-                  _position = position;
-                });
-              },
             ),
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 bottom: Radius.circular(10),
               ),
               child: Container(
-                color: Colors.white,
+                color: const Color(0xFF001427),
                 child: widget.window.child,
               ),
             ),
@@ -48,11 +58,9 @@ class _WindowWidgetState extends State<WindowWidget> {
 class _TitleBar extends StatefulWidget {
   const _TitleBar({
     required this.window,
-    required this.onDrag,
   });
 
   final Window window;
-  final void Function(Offset) onDrag;
 
   @override
   State<_TitleBar> createState() => _TitleBarState();
@@ -80,13 +88,12 @@ class _TitleBarState extends State<_TitleBar> {
             MediaQuery.of(context).size.height - 30,
           ),
         );
-        widget.onDrag(position);
+        context.read<WindowBloc>().add(MoveWindow(widget.window, position));
       },
       child: Container(
         height: 30,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFF001427),
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(10),
           ),
@@ -94,19 +101,46 @@ class _TitleBarState extends State<_TitleBar> {
         child: Stack(
           children: [
             Positioned(
+              left: 16,
               top: 0,
               bottom: 0,
               child: Row(
                 children: [
-                  _buildButton(color: Colors.red, onPressed: () {}),
-                  _buildButton(color: Colors.yellow, onPressed: () {}),
+                  _buildButton(
+                      color: Colors.red,
+                      onPressed: () {
+                        context
+                            .read<WindowBloc>()
+                            .add(CloseWindow(widget.window));
+                      }),
+                  _buildButton(
+                      color: Colors.yellow,
+                      onPressed: () {
+                        context
+                            .read<WindowBloc>()
+                            .add(MinimizeWindow(widget.window));
+                      }),
                   _buildButton(color: Colors.green, onPressed: () {}),
                 ],
               ),
             ),
             Positioned.fill(
               child: Center(
-                child: Text(widget.window.title),
+                child: Text(
+                  widget.window.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 1,
+                color: Colors.white,
               ),
             )
           ],
@@ -119,13 +153,16 @@ class _TitleBarState extends State<_TitleBar> {
     required Color color,
     VoidCallback? onPressed,
   }) {
-    return Container(
-      width: 10,
-      height: 10,
-      margin: const EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 10,
+        height: 10,
+        margin: const EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }
