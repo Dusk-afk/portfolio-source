@@ -16,7 +16,8 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       if (index != -1) {
         add(FocusWindow(state.windows[index]));
       } else {
-        final windows = List<Window>.from(state.windows)..add(event.window);
+        final windows = List<Window>.from(state.windows)
+          ..add(event.window.copyWith(position: const Offset(20, 20)));
         emit(WindowStateSafe(windows));
       }
     });

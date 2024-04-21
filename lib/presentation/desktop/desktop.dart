@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/models/window/window.dart';
@@ -8,6 +9,7 @@ import 'package:portfolio/presentation/pages/contact/contact.dart';
 import 'package:portfolio/presentation/pages/experience/experience.dart';
 import 'package:portfolio/presentation/pages/projects/projects.dart';
 import 'package:portfolio/provider/screen_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 int i = 0;
 
@@ -173,6 +175,37 @@ class Desktop extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 40),
+                    const Text(
+                      "// Connect",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 112, 112, 112),
+                        fontSize: 16,
+                        fontFamily: "JetBrains",
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const _ConnectButton(
+                      "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+                      "@Dusk-afk",
+                      TColors.green,
+                      "https://github.com/Dusk-afk",
+                    ),
+                    const SizedBox(height: 10),
+                    const _ConnectButton(
+                      "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/linkedin.svg",
+                      "@piyushk1264",
+                      TColors.pink,
+                      "https://www.linkedin.com/in/piyushk1264/",
+                    ),
+                    const SizedBox(height: 10),
+                    const _ConnectButton(
+                      "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/twitter.svg",
+                      "@PiyushAFK",
+                      TColors.blue,
+                      "https://twitter.com/PiyushAFK",
+                    ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -241,55 +274,50 @@ class _QuickLink extends StatelessWidget {
   }
 }
 
-class _Section extends StatelessWidget {
-  final String number;
-  final String title;
-  final String content;
+class _ConnectButton extends StatelessWidget {
+  final String url;
+  final String text;
   final Color color;
+  final String uri;
 
-  const _Section({
-    super.key,
-    required this.number,
-    required this.title,
-    required this.content,
-    required this.color,
-  });
+  const _ConnectButton(
+    this.url,
+    this.text,
+    this.color,
+    this.uri,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          number,
-          style: TextStyle(
-            color: color,
-            fontSize: 24,
-            fontFamily: "JetBrains",
-            fontWeight: FontWeight.w600,
+        TextButton(
+          onPressed: () async {
+            Uri uri_ = Uri.parse(uri);
+            if (await canLaunchUrl(uri_)) {
+              launchUrl(uri_);
+            }
+          },
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(TColors.transparent),
+            foregroundColor:
+                WidgetStateProperty.resolveWith(getForegroundColor),
           ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontFamily: "JetBrains",
-                  fontWeight: FontWeight.w600,
+              SvgPicture.network(
+                url,
+                colorFilter: const ColorFilter.mode(
+                  TColors.white,
+                  BlendMode.srcIn,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(width: 5),
               Text(
-                content,
+                text,
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
                   fontFamily: "JetBrains",
+                  fontSize: 16,
                 ),
               ),
             ],
@@ -297,5 +325,13 @@ class _Section extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Color getForegroundColor(Set<WidgetState> states) {
+    if (states.contains(WidgetState.hovered)) {
+      return color;
+    }
+
+    return TColors.white;
   }
 }
