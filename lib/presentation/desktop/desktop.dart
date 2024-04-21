@@ -7,6 +7,7 @@ import 'package:portfolio/presentation/pages/about_me.dart/about_me.dart';
 import 'package:portfolio/presentation/pages/contact/contact.dart';
 import 'package:portfolio/presentation/pages/experience/experience.dart';
 import 'package:portfolio/presentation/pages/projects/projects.dart';
+import 'package:portfolio/provider/screen_provider.dart';
 
 int i = 0;
 
@@ -175,7 +176,9 @@ class Desktop extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(flex: 3)
+              if (!context.watch<ScreenProvider>().isMobile)
+                const Spacer(flex: 3),
+              const SizedBox(width: 40),
             ],
           ),
         ],

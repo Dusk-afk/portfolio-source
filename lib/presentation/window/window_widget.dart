@@ -4,6 +4,9 @@ import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/data/constants.dart';
 import 'package:portfolio/models/window/window.dart';
+import 'package:portfolio/provider/screen_provider.dart';
+
+double titleBarHeight = 30;
 
 class WindowWidget extends StatefulWidget {
   final Window window;
@@ -16,6 +19,9 @@ class WindowWidget extends StatefulWidget {
 class _WindowWidgetState extends State<WindowWidget> {
   @override
   Widget build(BuildContext context) {
+    bool isMobile = context.watch<ScreenProvider>().isMobile;
+    titleBarHeight = isMobile ? 50 : 30;
+
     return Listener(
       onPointerDown: (_) {
         context.read<WindowBloc>().add(FocusWindow(widget.window));
@@ -23,7 +29,9 @@ class _WindowWidgetState extends State<WindowWidget> {
       child: Stack(
         children: [
           Container(
-            width: widget.window.size.width,
+            width: isMobile
+                ? MediaQuery.of(context).size.width
+                : widget.window.size.width,
             decoration: BoxDecoration(
               color: TColors.primary,
               border: Border.all(
@@ -49,7 +57,12 @@ class _WindowWidgetState extends State<WindowWidget> {
                     bottom: Radius.circular(10),
                   ),
                   child: Container(
-                    height: widget.window.size.height - 30,
+                    height: (isMobile
+                            ? MediaQuery.of(context).size.height -
+                                kMenuBarHeight -
+                                2
+                            : widget.window.size.height) -
+                        titleBarHeight,
                     color: TColors.primary,
                     child: SingleChildScrollView(child: widget.window.child),
                   ),
@@ -85,6 +98,8 @@ class _TitleBarState extends State<_TitleBar> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = context.watch<ScreenProvider>().isMobile;
+
     return Listener(
       onPointerDown: (event) {
         _mouseOffset = event.localPosition;
@@ -99,14 +114,14 @@ class _TitleBarState extends State<_TitleBar> {
           ),
           position.dy.clamp(
             kMenuBarHeight,
-            MediaQuery.of(context).size.height - 30,
+            MediaQuery.of(context).size.height - titleBarHeight,
           ),
         );
         position -= const Offset(0, kMenuBarHeight);
         context.read<WindowBloc>().add(MoveWindow(widget.window, position));
       },
       child: Container(
-        height: 30,
+        height: titleBarHeight,
         decoration: const BoxDecoration(
           color: TColors.primaryDark,
           borderRadius: BorderRadius.vertical(
@@ -122,27 +137,30 @@ class _TitleBarState extends State<_TitleBar> {
               right: 0,
               child: Row(
                 children: [
-                  _Button(
-                      color: TColors.pink,
-                      onPressed: () {
-                        context
-                            .read<WindowBloc>()
-                            .add(CloseWindow(widget.window));
-                      }),
-                  _Button(
-                      color: TColors.yellow,
-                      onPressed: () {
-                        context
-                            .read<WindowBloc>()
-                            .add(MinimizeWindow(widget.window));
-                      }),
-                  _Button(
-                      color: TColors.green,
-                      onPressed: () {
-                        context
-                            .read<WindowBloc>()
-                            .add(MaximizeWindow(widget.window));
-                      }),
+                  if (!isMobile) ...[
+                    _Button(
+                        color: TColors.pink,
+                        onPressed: () {
+                          context
+                              .read<WindowBloc>()
+                              .add(CloseWindow(widget.window));
+                        }),
+                    _Button(
+                        color: TColors.yellow,
+                        onPressed: () {
+                          context
+                              .read<WindowBloc>()
+                              .add(MinimizeWindow(widget.window));
+                        }),
+                    _Button(
+                        color: TColors.green,
+                        onPressed: () {
+                          context
+                              .read<WindowBloc>()
+                              .add(MaximizeWindow(widget.window));
+                        }),
+                  ],
+                  if (isMobile) _backButton(),
                   Expanded(
                     child: GestureDetector(
                       onDoubleTap: () {
@@ -188,6 +206,23 @@ class _TitleBarState extends State<_TitleBar> {
       ),
     );
   }
+
+  Widget _backButton() {
+    return GestureDetector(
+      onTap: () {
+        context.read<WindowBloc>().add(CloseWindow(widget.window));
+      },
+      child: IconButton(
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          context.read<WindowBloc>().add(CloseWindow(widget.window));
+        },
+      ),
+    );
+  }
 }
 
 class _Button extends StatefulWidget {
@@ -205,6 +240,8 @@ class __ButtonState extends State<_Button> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = context.watch<ScreenProvider>().isMobile;
+
     return MouseRegion(
       onEnter: (_) {
         setState(() {
@@ -219,9 +256,9 @@ class __ButtonState extends State<_Button> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: Container(
-          width: 14,
-          height: 14,
-          margin: const EdgeInsets.only(right: 8),
+          width: isMobile ? 22 : 14,
+          height: isMobile ? 22 : 14,
+          margin: EdgeInsets.only(right: isMobile ? 12 : 8),
           decoration: BoxDecoration(
             color: widget.color,
             shape: BoxShape.circle,
