@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
+import 'package:portfolio/data/global.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
 import 'package:portfolio/presentation/menu_bar/menu_bar.dart';
 import 'package:portfolio/presentation/window/window_canvas.dart';
@@ -15,6 +16,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Global.rootContext = context;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

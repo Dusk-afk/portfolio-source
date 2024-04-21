@@ -121,21 +121,27 @@ class _TitleBarState extends State<_TitleBar> {
               bottom: 0,
               child: Row(
                 children: [
-                  _buildButton(
+                  _Button(
                       color: TColors.pink,
                       onPressed: () {
                         context
                             .read<WindowBloc>()
                             .add(CloseWindow(widget.window));
                       }),
-                  _buildButton(
+                  _Button(
                       color: TColors.yellow,
                       onPressed: () {
                         context
                             .read<WindowBloc>()
                             .add(MinimizeWindow(widget.window));
                       }),
-                  _buildButton(color: TColors.green, onPressed: () {}),
+                  _Button(
+                      color: TColors.green,
+                      onPressed: () {
+                        context
+                            .read<WindowBloc>()
+                            .add(MaximizeWindow(widget.window));
+                      }),
                 ],
               ),
             ),
@@ -164,20 +170,56 @@ class _TitleBarState extends State<_TitleBar> {
       ),
     );
   }
+}
 
-  Widget _buildButton({
-    required Color color,
-    VoidCallback? onPressed,
-  }) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: 10,
-        height: 10,
-        margin: const EdgeInsets.only(right: 8),
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
+class _Button extends StatefulWidget {
+  final Color color;
+  final VoidCallback onPressed;
+
+  const _Button({required this.color, required this.onPressed});
+
+  @override
+  State<_Button> createState() => __ButtonState();
+}
+
+class __ButtonState extends State<_Button> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          _hovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          _hovered = false;
+        });
+      },
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: Container(
+          width: 14,
+          height: 14,
+          margin: const EdgeInsets.only(right: 8),
+          decoration: BoxDecoration(
+            color: widget.color,
+            shape: BoxShape.circle,
+          ),
+          child: _hovered
+              ? Center(
+                  child: Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.4),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                )
+              : null,
         ),
       ),
     );

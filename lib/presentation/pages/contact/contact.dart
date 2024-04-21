@@ -8,44 +8,49 @@ class Contact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 20),
-          Text(
-            "contact",
-            style: TextStyle(
-              fontFamily: "JetBrains",
-              fontSize: 40,
-              color: TColors.blue,
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 800,
+      ),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              "contact",
+              style: TextStyle(
+                fontFamily: "JetBrains",
+                fontSize: 40,
+                color: TColors.blue,
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          Text(
-            "I'm always looking for new opportunities to learn and grow. If you'd like to get in touch, feel free to contact me using the following platforms:",
-            style: TextStyle(
-              fontFamily: "JetBrains",
-              fontSize: 16,
-              color: TColors.white,
+            SizedBox(height: 20),
+            Text(
+              "I'm always looking for new opportunities to learn and grow. If you'd like to get in touch, feel free to contact me using the following platforms:",
+              style: TextStyle(
+                fontFamily: "JetBrains",
+                fontSize: 16,
+                color: TColors.white,
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          _Button(
-            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/gmail.svg",
-            "piyushk1264@gmail.com",
-            TColors.green,
-            "mailto:piyushk1264@gmail.com",
-          ),
-          SizedBox(height: 10),
-          _Button(
-            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/linkedin.svg",
-            "@piyushk1264",
-            TColors.pink,
-            "https://www.linkedin.com/in/piyushk1264/",
-          ),
-        ],
+            SizedBox(height: 20),
+            _Button(
+              "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/gmail.svg",
+              "piyushk1264@gmail.com",
+              TColors.green,
+              "mailto:piyushk1264@gmail.com",
+            ),
+            SizedBox(height: 10),
+            _Button(
+              "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/linkedin.svg",
+              "@piyushk1264",
+              TColors.pink,
+              "https://www.linkedin.com/in/piyushk1264/",
+            ),
+          ],
+        ),
       ),
     );
   }

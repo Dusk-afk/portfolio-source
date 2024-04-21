@@ -62,3 +62,12 @@ class ResizeWindow extends WindowEvent {
   @override
   List<Object> get props => [size, window];
 }
+
+class MaximizeWindow extends WindowEvent {
+  final Window window;
+
+  const MaximizeWindow(this.window);
+
+  @override
+  List<Object> get props => [window];
+}

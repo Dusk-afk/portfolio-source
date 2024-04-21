@@ -17,185 +17,167 @@ class Desktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: TColors.primary,
-      child: Row(
+      child: ListView(
         children: [
-          const SizedBox(width: 40),
-          Expanded(
-            flex: 5,
-            child: ListView(
-              children: [
-                const SizedBox(height: 40),
-                RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
-                      fontFamily: "JetBrains",
-                      fontSize: 52,
-                      fontWeight: FontWeight.w600,
+          Row(
+            children: [
+              const SizedBox(width: 40),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 40),
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontFamily: "JetBrains",
+                          fontSize: 52,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "I",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          TextSpan(
+                            text: "'",
+                            style: TextStyle(color: TColors.yellow),
+                          ),
+                          TextSpan(
+                            text: "m Piyush Kumar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          TextSpan(
+                            text: ".",
+                            style: TextStyle(color: TColors.pink),
+                          ),
+                        ],
+                      ),
                     ),
-                    children: [
-                      TextSpan(
-                        text: "I",
-                        style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 24),
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "JetBrains",
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "I'm a Flutter Developer specializing"
+                                " in building beautiful and high-performance"
+                                " mobile applications. Currently, I'm"
+                                " working on building a portfolio website"
+                                " to showcase my work.",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                      TextSpan(
-                        text: "'",
-                        style: TextStyle(color: Colors.yellow),
-                      ),
-                      TextSpan(
-                        text: "m James John",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      TextSpan(
-                        text: ".",
-                        style: TextStyle(color: Colors.pink),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: "JetBrains",
                     ),
-                    children: [
-                      TextSpan(
-                        text: "I'm a Flutter Developer specializing"
-                            " in building beautiful and high-performance"
-                            " mobile applications. Currently, I'm"
-                            " working on building a portfolio website"
-                            " to showcase my work.",
-                        style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 24),
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "JetBrains",
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "The world is better with my code in it.",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: "JetBrains",
                     ),
-                    children: [
-                      TextSpan(
-                        text: "The world is better with my code in it.",
-                        style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 40),
+                    const Text(
+                      "// Quick Links",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 112, 112, 112),
+                        fontSize: 16,
+                        fontFamily: "JetBrains",
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                const Text(
-                  "// Quick Links",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 112, 112, 112),
-                    fontSize: 16,
-                    fontFamily: "JetBrains",
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _QuickLink(
-                  title: "About Me",
-                  color: TColors.pink,
-                  onPressed: () {
-                    context.read<WindowBloc>().add(
-                          const AddWindow(
-                            Window(
-                              title: "About Me",
-                              child: AboutMe(),
-                            ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _QuickLink(
+                                title: "About Me",
+                                color: TColors.pink,
+                                onPressed: () {
+                                  context.read<WindowBloc>().add(
+                                        const AddWindow(
+                                          Window(
+                                            title: "About Me",
+                                            child: AboutMe(),
+                                          ),
+                                        ),
+                                      );
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              _QuickLink(
+                                title: "Experience",
+                                color: TColors.yellow,
+                                onPressed: () {
+                                  context.read<WindowBloc>().add(
+                                        const AddWindow(
+                                          Window(
+                                            title: "Experience",
+                                            child: Experience(),
+                                          ),
+                                        ),
+                                      );
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              _QuickLink(
+                                title: "Projects",
+                                color: TColors.green,
+                                onPressed: () {
+                                  context.read<WindowBloc>().add(
+                                        const AddWindow(
+                                          Window(
+                                            title: "Projects",
+                                            child: Projects(),
+                                          ),
+                                        ),
+                                      );
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              _QuickLink(
+                                title: "Contact",
+                                color: TColors.blue,
+                                onPressed: () {
+                                  context.read<WindowBloc>().add(
+                                        const AddWindow(
+                                          Window(
+                                            title: "Contact",
+                                            child: Contact(),
+                                          ),
+                                        ),
+                                      );
+                                },
+                              ),
+                            ],
                           ),
-                        );
-                  },
+                        ),
+                        const Spacer(flex: 2),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                _QuickLink(
-                  title: "Experience",
-                  color: TColors.yellow,
-                  onPressed: () {
-                    context.read<WindowBloc>().add(
-                          const AddWindow(
-                            Window(
-                              title: "Experience",
-                              child: Experience(),
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                const SizedBox(height: 20),
-                _QuickLink(
-                  title: "Projects",
-                  color: TColors.green,
-                  onPressed: () {
-                    context.read<WindowBloc>().add(
-                          const AddWindow(
-                            Window(
-                              title: "Projects",
-                              child: Projects(),
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                const SizedBox(height: 20),
-                _QuickLink(
-                  title: "Contact",
-                  color: TColors.blue,
-                  onPressed: () {
-                    context.read<WindowBloc>().add(
-                          const AddWindow(
-                            Window(
-                              title: "Contact",
-                              child: Contact(),
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                // const _Section(
-                //   number: "01.",
-                //   title: "About Me",
-                //   content: "I'm a Flutter Developer specializing in building"
-                //       " beautiful and high-performance mobile applications."
-                //       " Currently, I'm working on building a portfolio website"
-                //       " to showcase my work.",
-                //   color: TColors.pink,
-                // ),
-                // const SizedBox(height: 40),
-                // const _Section(
-                //   number: "02.",
-                //   title: "Experience",
-                //   content: "I have 2 years of experience in building mobile"
-                //       " applications using Flutter. I have worked with"
-                //       " clients from around the world and have built"
-                //       " applications for various industries.",
-                //   color: TColors.yellow,
-                // ),
-                // const SizedBox(height: 40),
-                // const _Section(
-                //   number: "03.",
-                //   title: "Projects",
-                //   content: "I have worked on various projects ranging from"
-                //       " small to large scale. I have built applications for"
-                //       " startups, enterprises, and personal projects.",
-                //   color: TColors.green,
-                // ),
-                // const SizedBox(height: 40),
-                // const _Section(
-                //   number: "04.",
-                //   title: "Contact",
-                //   content: "You can contact me at piyushk1264@gmail.com"
-                //       " or follow me on Twitter @piyushk1264.",
-                //   color: TColors.blue,
-                // ),
-              ],
-            ),
+              ),
+              const Spacer(flex: 3)
+            ],
           ),
-          const Spacer(flex: 3)
         ],
       ),
     );

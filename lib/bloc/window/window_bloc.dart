@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/data/constants.dart';
+import 'package:portfolio/data/global.dart';
 import 'package:portfolio/models/window/window.dart';
 
 part 'window_event.dart';
@@ -52,6 +54,22 @@ class WindowBloc extends Bloc<WindowEvent, WindowState> {
       final windows = List<Window>.from(state.windows);
       windows.removeAt(index);
       windows.add(event.window.copyWith(size: event.size));
+      emit(WindowStateSafe(windows));
+    });
+
+    on<MaximizeWindow>((event, emit) {
+      int index = state.windows.indexOf(event.window);
+      if (index == -1) return;
+
+      Size screenSize = MediaQuery.of(Global.rootContext).size;
+      screenSize = Size(screenSize.width, screenSize.height - kMenuBarHeight);
+
+      final windows = List<Window>.from(state.windows);
+      windows.removeAt(index);
+      windows.add(event.window.copyWith(
+        position: Offset.zero,
+        size: screenSize,
+      ));
       emit(WindowStateSafe(windows));
     });
   }

@@ -5,7 +5,6 @@ import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/models/project/project.dart';
 import 'package:portfolio/models/window/window.dart';
 import 'package:portfolio/presentation/pages/projects/project_full.dart';
-import 'package:video_player/video_player.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;

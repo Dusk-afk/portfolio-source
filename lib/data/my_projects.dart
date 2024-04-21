@@ -6,7 +6,7 @@ const List<Project> myProjects = [
     name: "Funnel",
     description:
         "An accounting application to simplify the process of communication between accountants and business owners",
-    date: "2024",
+    date: "2022 - Present",
     image: AssetImage("assets/funnel.jpg"),
     technologies: ["Flutter", "Dart", "Flask", "Python", "MySQL", "AWS"],
     demos: [
