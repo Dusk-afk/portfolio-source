@@ -4,6 +4,7 @@ import 'package:portfolio/bloc/window/window_bloc.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/data/constants.dart';
 import 'package:portfolio/models/window/window.dart';
+import 'package:portfolio/presentation/background/background.dart';
 import 'package:portfolio/provider/screen_provider.dart';
 
 double titleBarHeight = 30;
@@ -28,12 +29,15 @@ class _WindowWidgetState extends State<WindowWidget> {
       },
       child: Stack(
         children: [
+          Positioned.fill(
+            child: Background.window(),
+          ),
           Container(
             width: isMobile
                 ? MediaQuery.of(context).size.width
                 : widget.window.size.width,
             decoration: BoxDecoration(
-              color: TColors.primary,
+              // color: TColors.primary,
               border: Border.all(
                 color: Colors.white,
               ),
@@ -63,7 +67,7 @@ class _WindowWidgetState extends State<WindowWidget> {
                                 2
                             : widget.window.size.height) -
                         titleBarHeight,
-                    color: TColors.primary,
+                    // color: TColors.primary,
                     child: SingleChildScrollView(child: widget.window.child),
                   ),
                 ),

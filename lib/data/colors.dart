@@ -8,7 +8,7 @@ class TColors {
   static const Color secondary = Color(0xFF03DAC6);
   static const Color secondaryVariant = Color(0xFF018786);
 
-  static const Color primaryDark = Color.fromARGB(255, 0, 30, 58);
+  static const Color primaryDark = Color.fromARGB(255, 0, 6, 65);
   static const Color primaryDarker = Color(0xFF001427);
 
   static const Color pink = Color(0xFFfd859e);
