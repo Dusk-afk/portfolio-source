@@ -52,7 +52,7 @@ class _AboutMeState extends State<AboutMe> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      "I'm a software engineer based in the India. I have a passion for creating software that is both beautiful and functional. I have experience in web development, mobile development, and desktop development. I'm always looking for new opportunities to learn and grow.",
+                      "I'm a student pursuing a Bachelor of Technology (B.Tech) in Computer Science and Engineering. I have a passion for creating software that is both beautiful and functional. I have experience in web development, mobile development, and desktop development. I'm always looking for new opportunities to learn and grow.",
                       style: TextStyle(
                         fontFamily: "JetBrains",
                         fontSize: 16,

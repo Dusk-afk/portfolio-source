@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/data/colors.dart';
+import 'package:portfolio/provider/mouse_provider.dart';
+import 'package:provider/provider.dart';
 
 class Background extends StatelessWidget {
   Background({super.key})
@@ -59,9 +62,48 @@ class Background extends StatelessWidget {
               color: const Color.fromARGB(255, 0, 1, 24),
             ),
           ),
+          _mouseCircle(context),
           ...circles,
         ],
       ),
+    );
+  }
+
+  Widget _mouseCircle(BuildContext context) {
+    return Consumer<MouseProvider>(builder: (_, provider, __) {
+      Offset position = provider.position;
+      position =
+          (context.findRenderObject() as RenderBox?)?.globalToLocal(position) ??
+              position;
+      double size = 400;
+
+      return Positioned(
+        top: position.dy - size / 2,
+        left: position.dx - size / 2,
+        child: _Circle(size: size, color: TColors.white.withOpacity(0.1)),
+      );
+    });
+  }
+}
+
+class MouseResponsiveBackground extends StatefulWidget {
+  const MouseResponsiveBackground({super.key});
+
+  @override
+  State<MouseResponsiveBackground> createState() =>
+      _MouseResponsiveBackgroundState();
+}
+
+class _MouseResponsiveBackgroundState extends State<MouseResponsiveBackground> {
+  @override
+  Widget build(BuildContext context) {
+    Offset position = context.watch<MouseProvider>().position;
+    double size = 400;
+
+    return Positioned(
+      top: position.dy - size / 2,
+      left: position.dx - size / 2,
+      child: _Circle(size: size, color: TColors.white.withOpacity(0.1)),
     );
   }
 }

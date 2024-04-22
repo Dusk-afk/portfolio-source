@@ -7,6 +7,7 @@ import 'package:portfolio/presentation/background/background.dart';
 import 'package:portfolio/presentation/desktop/desktop.dart';
 import 'package:portfolio/presentation/menu_bar/menu_bar.dart';
 import 'package:portfolio/presentation/window/window_canvas.dart';
+import 'package:portfolio/provider/mouse_provider.dart';
 import 'package:portfolio/provider/screen_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class MainApp extends StatelessWidget {
             create: (_) => WindowBloc(),
           ),
           ChangeNotifierProvider(create: (_) => ScreenProvider()),
+          ChangeNotifierProvider(create: (_) => MouseProvider()),
         ],
         child: Builder(builder: (context) {
           Global.rootContext = context;
@@ -74,6 +76,14 @@ class MainApp extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                Positioned.fill(
+                  child: Listener(
+                    behavior: HitTestBehavior.translucent,
+                    onPointerHover: (event) {
+                      context.read<MouseProvider>().position = event.position;
+                    },
+                  ),
                 ),
               ],
             ),
