@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/data/colors.dart';
 import 'package:portfolio/models/project/project.dart';
@@ -62,13 +63,46 @@ class ProjectFull extends StatelessWidget {
               )
             ],
             const SizedBox(height: 20),
-            Text(
-              project.description,
-              style: const TextStyle(
-                fontSize: 16,
-                color: TColors.white,
-              ),
-            ),
+            project.mdDescription != null
+                ? MarkdownBody(
+                    data: project.mdDescription!,
+                    styleSheet: MarkdownStyleSheet(
+                      p: const TextStyle(
+                        fontSize: 16,
+                        color: TColors.white,
+                      ),
+                      listBullet: const TextStyle(
+                        fontSize: 16,
+                        color: TColors.blue,
+                      ),
+                      strong: const TextStyle(
+                        fontSize: 16,
+                        color: TColors.green,
+                      ),
+                      h1: const TextStyle(
+                        fontSize: 24,
+                        color: TColors.pink,
+                      ),
+                      h2: const TextStyle(
+                        fontSize: 20,
+                        color: TColors.pink,
+                      ),
+                    ),
+                    onTapLink: (text, href, title) async {
+                      if (href == null) return;
+                      Uri uri = Uri.parse(href);
+                      if (await canLaunchUrl(uri)) {
+                        launchUrl(uri);
+                      }
+                    },
+                  )
+                : Text(
+                    project.description,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: TColors.white,
+                    ),
+                  ),
             const SizedBox(height: 20),
             const Text(
               "tech stack",

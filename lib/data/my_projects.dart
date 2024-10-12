@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/data/projects/anime_explore.dart';
+import 'package:portfolio/data/projects/fitwiz.dart';
+import 'package:portfolio/data/projects/imdb_clone.dart';
+import 'package:portfolio/data/projects/spotify_clone.dart';
 import 'package:portfolio/models/project/project.dart';
 
 const List<Project> myProjects = [
@@ -20,9 +24,155 @@ const List<Project> myProjects = [
     links: [
       ProjectLink(
         svgLink:
-            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/internetexplorer.svg",
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
         link: "https://funnelnetwork.in",
         title: "funnelnetwork.in",
+      ),
+    ],
+  ),
+  Project(
+    name: "Fitwiz",
+    description:
+        "Fitwiz hosts events which users can participate in, fostering a community of fitness enthusiasts and providing extra motivation to achieve their goals.",
+    mdDescription: Fitwiz.mdDescription,
+    date: "Oct 2024",
+    image: AssetImage("assets/fitwiz.png"),
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Flask",
+      "Python",
+      "MySQL",
+      "AWS",
+      "Docker"
+    ],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
+        link: "https://fit-wiz.com",
+        title: "fit-wiz.com",
+      ),
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googleplay.svg",
+        link: "https://play.google.com/store/apps/details?id=com.fit_wiz",
+        title: "Fitwiz",
+      ),
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/fitwiz",
+        title: "GitHub",
+      ),
+    ],
+  ),
+  Project(
+    name: "Anime Explore",
+    description:
+        "Anime Explore is a versatile application designed for effortlessly searching, exploring, and enjoying your favorite anime titles.",
+    mdDescription: AnimeExplore.mdDescription,
+    date: "May 2024",
+    image: AssetImage("assets/anime_explore.webp"),
+    technologies: ["Flutter", "Dart", "Jikan API", "BLoC"],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/anime-explore",
+        title: "GitHub",
+      ),
+    ],
+  ),
+  Project(
+    name: "Spotify Clone",
+    description:
+        "A Spotify clone which features user authentication, music streaming, playlists, and subscription management.",
+    mdDescription: SpotifyClone.mdDescription,
+    date: "June 2024",
+    image: AssetImage("assets/spotify.jpg"),
+    technologies: [
+      "NextJS",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "Stripe"
+    ],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/spotify-clone",
+        title: "GitHub",
+      ),
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
+        link: "https://spotify-clone-lac-tau.vercel.app/",
+        title: "Deployed Web App",
+      ),
+    ],
+  ),
+  Project(
+    name: "House Price Predictor",
+    description:
+        "Interactive dashboard for California Housing Prices prediction using Streamlit and RandomForest.",
+    mdDescription: '''
+This project demonstrates the use of the California Housing Prices dataset to build a model that predicts the median house value based on various features.
+
+The dataset utilized is the [California Housing Prices](https://www.kaggle.com/datasets/camnugent/california-housing-prices) from Kaggle. The predictive model employed is a Random Forest Regressor.
+                  ''',
+    date: "June 2024",
+    image: AssetImage("assets/house_price.jpg"),
+    technologies: [
+      "Python",
+      "Pandas",
+      "Numpy",
+      "Matplotlib",
+      "Seaborn",
+      "Scikit-learn",
+      "Streamlit"
+    ],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/California-House-Price-Predictor",
+        title: "GitHub",
+      ),
+      // Deployed
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
+        link: "https://california-house-prices-predictor.streamlit.app/",
+        title: "Deployed Web App",
+      ),
+    ],
+  ),
+  Project(
+    name: "IMDb Clone",
+    description:
+        "A Spotify clone which features user authentication, music streaming, playlists, and subscription management.",
+    mdDescription: ImdbClone.mdDescription,
+    date: "June 2024",
+    image: AssetImage("assets/imdb.png"),
+    technologies: [
+      "NextJS",
+      "Tailwind CSS",
+      "TheMovieDB API",
+    ],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/imdb-clone",
+        title: "GitHub",
+      ),
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
+        link: "https://imdb-clone-xi-ivory.vercel.app/",
+        title: "Deployed Web App",
       ),
     ],
   ),
@@ -83,7 +233,7 @@ const List<Project> myProjects = [
       ),
       ProjectLink(
         svgLink:
-            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/internetexplorer.svg",
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
         link: "https://dusk-afk.github.io/polyrythm-web/",
         title: "Deployed Web App",
       ),
@@ -111,9 +261,28 @@ const List<Project> myProjects = [
       ),
       ProjectLink(
         svgLink:
-            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/internetexplorer.svg",
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlechrome.svg",
         link: "https://dusk-afk.github.io/macos_dock/",
         title: "Deployed Web App",
+      ),
+    ],
+  ),
+  Project(
+    name: "TODO List App",
+    description:
+        "A very basic and lightweight todo list app built using Next JS",
+    date: "May 2024",
+    image: AssetImage("assets/todo.png"),
+    technologies: [
+      "NextJS",
+      "Tailwind CSS",
+    ],
+    links: [
+      ProjectLink(
+        svgLink:
+            "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+        link: "https://github.com/Dusk-afk/todo-list-app",
+        title: "GitHub",
       ),
     ],
   ),

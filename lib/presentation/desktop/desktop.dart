@@ -215,10 +215,10 @@ class Desktop extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       const _ConnectButton(
-                        "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/twitter.svg",
+                        "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/x.svg",
                         "@PiyushAFK",
                         TColors.blue,
-                        "https://twitter.com/PiyushAFK",
+                        "https://x.com/PiyushAFK",
                       ),
                       const SizedBox(height: 40),
                     ],

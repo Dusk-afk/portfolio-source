@@ -35,28 +35,29 @@ class Experience extends StatelessWidget {
             ),
             SizedBox(height: 20),
             _Section(
-              role: "SDE",
+              role: "Flutter Developer Intern",
+              company: "UrbanMatch",
+              date: "Jul 2024 - Present",
+              companyDescription:
+                  "UrbanMatch is the ultimate matchmaking app designed to help you find your perfect partner",
+              achievements: [
+                "Recreated 80% of the app’s screens while transitioning from Flutter 2 to Flutter 3, reducing app bundle size by 23% (113.5 MB to 86.9 MB)",
+                "Established a fully responsive design ensuring 100% compatibility across all mobile displays, enhancing user experience on various devices",
+                "Integrated payments through 3 gateways (Apple Pay, Razorpay, PayPal) using Flutter and Django for seamless transaction",
+                "Implemented OAuth sign-in functionality with Google and Apple, increasing user sign-up efficiency by 30% and improving user retention",
+              ],
+            ),
+            SizedBox(height: 20),
+            _Section(
+              role: "Software Developer Intern",
               company: "Synmiles Technologies Pvt Ltd",
               date: "Mar 2022 - Nov 2022 (9 Months)",
               companyDescription:
                   "Synmiles is a technology company that undertakes various projects to provide assistance to others.",
               achievements: [
-                "Excelled as a Flutter Developer, contributing to the seamless development of mobile applications.",
-                "Successfully conceived, developed, and deployed a cross-platform app, ensuring its availability on both Android and iOS platforms.",
-                "Implemented innovative solutions that significantly improved app performance or user experience.",
-                "Acquired foundational backend development skills, bridging the gap between frontend and backend to create comprehensive and integrated solutions.",
-              ],
-            ),
-            SizedBox(height: 20),
-            _Section(
-              role: "SDE - Intern",
-              company: "Autocomp Mechatronix",
-              date: "Jan 2022 - Mar 2022 (3 Months)",
-              companyDescription: "Technical consultancy company",
-              achievements: [
-                "Worked on a Flutter-based e-commerce app and optimising user interfaces for multi-platform functionality.",
-                "Contributed significantly to the development of a web-based CRM application, streamlining user interactions and enhancing data management.",
-                "Collaborated on debugging sessions, addressing technical challenges alongside senior developers to enhance software stability.",
+                "Built and maintained a cross-platform mobile app using Flutter, scaling it to over 1,000 users on both Android and iOS platforms",
+                "Engineered a push notification system using WebSockets, increasing user retention by 28%",
+                "Optimized network calls from the app, improving app performance by 16%, resulting in faster load times",
               ],
             ),
           ],

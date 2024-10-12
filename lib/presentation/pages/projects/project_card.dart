@@ -29,30 +29,30 @@ class ProjectCard extends StatelessWidget {
         ),
         padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
       ),
-      child: SizedBox(
-        width: 300,
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: project.image != null
-                  ? Image(
-                      image: project.image!,
-                      fit: BoxFit.cover,
-                      width: 300,
-                      height: 200,
-                    )
-                  : Image.network(
-                      "https://via.placeholder.com/300x200",
-                      fit: BoxFit.cover,
-                      width: 300,
-                      height: 200,
-                    ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: project.image != null
+                ? Image(
+                    image: project.image!,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 200,
+                  )
+                : Image.network(
+                    "https://via.placeholder.com/300x200",
+                    fit: BoxFit.cover,
+                    width: 300,
+                    height: 200,
+                  ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
                   project.name,
                   style: const TextStyle(
                     fontSize: 16,
@@ -60,27 +60,26 @@ class ProjectCard extends StatelessWidget {
                     color: TColors.green,
                   ),
                 ),
-                const Spacer(),
-                Text(
-                  project.date,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: TColors.grey,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              project.description,
-              style: const TextStyle(
-                fontSize: 14,
-                color: TColors.white,
               ),
-            )
-          ],
-        ),
+              Text(
+                project.date,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: TColors.grey,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            project.description,
+            style: const TextStyle(
+              fontSize: 14,
+              color: TColors.white,
+            ),
+          )
+        ],
       ),
     );
   }

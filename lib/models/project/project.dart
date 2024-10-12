@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Project {
   final String name;
   final String description;
+  final String? mdDescription;
   final String date;
   final String? users;
   final ImageProvider? image;
@@ -13,6 +14,7 @@ class Project {
   const Project({
     required this.name,
     required this.description,
+    this.mdDescription,
     required this.date,
     this.users,
     this.image,
